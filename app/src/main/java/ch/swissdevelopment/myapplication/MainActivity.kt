@@ -76,7 +76,7 @@ private fun WebView() {
         factory = { context ->
             WebView(context).apply {
                 println(isAppCompatLightTheme(context))
-                
+
                 webViewClient = WebViewClient()
                 webChromeClient = WebChromeClient()
 
