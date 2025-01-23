@@ -3,6 +3,8 @@ package ch.swissdevelopment.myapplication
 import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
@@ -74,7 +76,15 @@ private fun WebView() {
         factory = { context ->
             WebView(context).apply {
                 webViewClient = WebViewClient()
-                settings.javaScriptEnabled = true
+
+                webChromeClient = WebChromeClient()
+
+                settings.apply {
+                    javaScriptEnabled = true
+                    domStorageEnabled = true
+                    mediaPlaybackRequiresUserGesture = false
+                    cacheMode = WebSettings.LOAD_DEFAULT
+                }
             }
         },
         update = { webView ->
