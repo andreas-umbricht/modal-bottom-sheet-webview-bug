@@ -75,15 +75,13 @@ private fun WebView() {
     AndroidView(
         factory = { context ->
             WebView(context).apply {
+                println(isAppCompatLightTheme(context))
+                
                 webViewClient = WebViewClient()
-
                 webChromeClient = WebChromeClient()
 
                 settings.apply {
                     javaScriptEnabled = true
-                    domStorageEnabled = true
-                    mediaPlaybackRequiresUserGesture = false
-                    cacheMode = WebSettings.LOAD_DEFAULT
                 }
             }
         },
@@ -93,4 +91,14 @@ private fun WebView() {
         modifier = Modifier
             .fillMaxSize()
     )
+}
+
+fun isAppCompatLightTheme(context: Context): Boolean {
+    val typedValue = TypedValue()
+    val theme = context.theme
+    return if (theme.resolveAttribute(androidx.appcompat.R.attr.isLightTheme, typedValue, true)) {
+        typedValue.data != 0 // Non-zero means `true` for boolean attributes
+    } else {
+        false // Default fallback if the attribute is not defined
+    }
 }
